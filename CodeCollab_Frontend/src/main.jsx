@@ -5,6 +5,7 @@ import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import 'codemirror/lib/codemirror.css'
 import 'codemirror/theme/dracula.css'
+import 'codemirror/mode/javascript/javascript'
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
