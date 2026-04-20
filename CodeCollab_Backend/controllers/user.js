@@ -7,7 +7,7 @@ import bcrypt from "bcrypt"
 import crypto from "crypto"
 import sendMail from "../config/sendmail.js";
 import { getOtpHtml, getVerifyEmailHtml } from "../config/html.js";
-import { generateToken } from "../config/generateToken.js";
+import { generateAccessToken, generateToken, verifyRefreshToken } from "../config/generateToken.js";
 
 const registerUser = RequestHandler(async (req, res) => {
     const sanitizedBody = sanitize(req.body)
@@ -210,4 +210,21 @@ const myProfile=RequestHandler(async(req,res)=>{
 
 })
 
-export {myProfile, registerUser, verifyUser,loginUser,verifyOtp}
+const refreshToken=RequestHandler(async(req,res)=>{
+    const refreshToken=req.cookies.refreshToken
+    if(!refreshToken){
+        return res.status(401).json({
+            message:"Invalid resfresh token",
+        })
+    }
+    const decode=await verifyRefreshToken(refreshToken)
+
+    if(!decode){
+        return res.status(401).json({message:"Inavalid token"})
+    }
+
+    generateAccessToken(decode.id,res)
+
+    res.status(200).json({message:"toekn refreshed"})
+})
+export {myProfile, registerUser, verifyUser,loginUser,verifyOtp,refreshToken}
