@@ -6,7 +6,6 @@ const isAuth = async(req,res,next)=>{
     try {
         
         const token = await req.cookies.accessToken
-        console.log(token)
 
         if(!token){
             return res.status(403).json({

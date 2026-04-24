@@ -1,5 +1,5 @@
 import express from "express"
-import { loginUser, myProfile, refreshToken, registerUser, verifyOtp, verifyUser } from "../controllers/user.js";
+import { loginUser, logOutUser, myProfile, refreshToken, registerUser, verifyOtp, verifyUser } from "../controllers/user.js";
 import isAuth from "../middlewares/isAuth.js";
 
 const router=express.Router()
@@ -10,4 +10,5 @@ router.post("/login",loginUser)
 router.post("/verify",verifyOtp)
 router.get("/profile",isAuth,myProfile)
 router.post("/refresh",refreshToken)
+router.post("/logout",isAuth,logOutUser)
 export default router;
