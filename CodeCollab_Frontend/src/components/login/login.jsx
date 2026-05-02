@@ -1,12 +1,27 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { server } from '../../main'
+import axios from "axios"
+import { toast } from 'react-toastify'
 
 const LoginComponent = () => {
     const [email,setEmail] = useState("")
     const [password,setPassword] =useState("")
+    const [btnLoading,setBtnLoading]=useState(false)
+    const navigate=useNavigate()
     const submitHandler = async (e)=>{
+        setBtnLoading(true)
         e.preventDefault()
-        console.log(email,password)
+        try {
+            const{data}=await axios.post(`${server}/api/v1/login`,{email,password})
+            toast.success(data.message)
+            localStorage.setItem("email",email)
+            navigate("/verifyotp")
+        } catch (error) {
+            toast.error(error.response.data.message)
+        } finally{
+            setBtnLoading(false)
+        }
     }
     return (
         <div>
@@ -27,7 +42,7 @@ const LoginComponent = () => {
                             <input type="password" id="password" name="password" className="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-indigo-900 rounded border border-gray-600 focus:border-indigo-500 text-base outline-none text-gray-100 py-1  px-3 leading-8 transition-colors duration-200 ease-in-out"
                             onChange={e=>setPassword(e.target.value )} required></input>
                         </div>
-                        <button className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">Button</button>
+                        <button disabled={btnLoading} className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">{btnLoading?"Submitting....":"Submit"}</button>
                         <Link to={"/register"} className="text-xs mt-3">Don't have an account?</Link>
                     </form>
                 </div>
