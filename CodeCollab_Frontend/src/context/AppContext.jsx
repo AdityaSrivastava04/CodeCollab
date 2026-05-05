@@ -1,6 +1,7 @@
 import axios from "axios"
 import {createContext, useContext, useEffect, useState} from "react"
 import { server } from "../main"
+import api from "../ApiIntercepter"
 
 const AppContext= createContext(null)
 
@@ -12,13 +13,9 @@ export const AppProvider=({children})=>{
     async function fecthUser() {
         setLoading(true)
         try {
-            const data=axios.get(`${server}/api/v1/profile`,{
-                withCredentials:true,
-            })
-
-            setUser(data)
+            const {data}=await api.get(`/api/v1/profile`)
+            setUser(data.user)
             setIsAuth(true)
-
         } catch (error) {
             console.log(error)
         }finally{
