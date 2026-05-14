@@ -4,6 +4,7 @@ import { server } from '../../main'
 import axios from "axios"
 import { toast } from 'react-toastify'
 import { Code2, Mail, Lock, ArrowRight } from 'lucide-react'
+import Logo from '../logo/logo'
 
 function ParticleBackground() {
   const canvasRef = useRef(null)
@@ -221,23 +222,7 @@ const LoginComponent = () => {
             to="/"
             className="flex items-center gap-2.5 no-underline select-none group w-fit"
           >
-            <div 
-              className="
-                w-[34px] h-[34px] rounded-[9px] flex-shrink-0
-                bg-gradient-to-br from-[#3dffa0] to-[#00d4ff]
-                flex items-center justify-center
-                transition-transform duration-300
-                group-hover:rotate-[-8deg] group-hover:scale-110
-              "
-            >
-              <Code2 size={17} strokeWidth={2.5} className="text-[#050a10]" />
-            </div>
-            <span className="logo-text font-extrabold text-[19px] tracking-tight text-white">
-              Code
-              <span className="bg-gradient-to-r from-[#3dffa0] to-[#00d4ff] bg-clip-text text-transparent">
-                Collab
-              </span>
-            </span>
+          <Logo/>
           </Link>
         </div>
 
@@ -407,7 +392,7 @@ const LoginComponent = () => {
         </div>
 
         <div className="p-6 text-center text-white/30 text-sm">
-          <p>© 2024 CodeCollab. All rights reserved.</p>
+          <p>© 2026 CodeCollab. All rights reserved.</p>
         </div>
       </div>
     </div>
